@@ -1,0 +1,60 @@
+# Beispiel: eine einzelne, wiederverwendbare Suche.
+# Aufruf: python job_agent.py --config config.example.yaml
+#
+# CLI-Flags überschreiben bei Bedarf einzelne Werte, z.B.:
+#   python job_agent.py --config config.example.yaml --results-wanted 10
+
+# Einzelnes Keyword als String, oder mehrere als Liste (je Keyword ein eigener
+# Suchlauf mit gleichen restlichen Kriterien, im Ergebnis über "search_profile"
+# unterscheidbar):
+# keywords:
+#   - "Python Entwickler"
+#   - "Backend Developer"
+#   - "Software Engineer Python"
+keywords: "Python Entwickler"
+location: "Stuttgart"
+radius: 50
+sites:
+  - linkedin
+  - indeed
+results_wanted: 25
+hours_old: 72       # nur Anzeigen der letzten 72 Stunden (null = kein Filter)
+remote: false
+output: "job_results_python_stuttgart.csv"
+
+# Optional: gezielt nach einer Firma filtern, z.B. "Mercedes-Benz", "Porsche", "Allianz"
+# company: "Mercedes-Benz"
+
+# Oder mehrere Firmen (gleiche keywords/location/... für alle, ein Suchlauf pro Firma,
+# im Ergebnis über "search_profile" unterscheidbar):
+# companies:
+#   - "Mercedes-Benz"
+#   - "Porsche"
+#   - "Allianz"
+
+# Optional: eigene Portale zusätzlich mit CSS-Selektoren anbinden.
+# custom_urls:
+#   - url: "https://example-jobs.de/suche?q=python"
+#     item_selector: ".job-card"
+#     title_selector: ".job-title"
+#     link_selector: ".job-title a"
+#     company_selector: ".company-name"
+#     location_selector: ".job-location"
+
+# Optional: Stellen gegen den eigenen Lebenslauf bewerten lassen (siehe README,
+# Abschnitt "Stellen gegen den eigenen Lebenslauf bewerten"). Braucht ANTHROPIC_API_KEY
+# als Umgebungsvariable.
+# cv_path: "CV.pdf"
+
+# Nur zusammen mit cv_path relevant: Wird eine Stelle mit "Sehr gut" bewertet, erstellt
+# der Agent automatisch ein vollständiges Bewerbungs-PDF (individuelles Anschreiben per
+# Claude API + dieser CV dahinter) und legt es in "Bewerbungsunterlagen_<Datum>/" ab
+# (siehe README, Abschnitt "Automatische Bewerbungsunterlagen bei Top-Match"). Ohne
+# diesen Block läuft die Generierung trotzdem, dann aber ohne Absender-Kopfzeile.
+# applicant:
+#   name: "Vorname Nachname"
+#   street: "Musterstraße 1"
+#   plz_city: "70000 Musterstadt"
+#   city: "Musterstadt"
+#   phone: "+49 000 0000000"
+#   email: "name@example.com"
